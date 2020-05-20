@@ -4,8 +4,8 @@ import pandas as pd
 import seaborn as sn
 import matplotlib.pyplot as plt
 
-from tensorflow.keras.applications.vgg19 import preprocess_input
-# from tensorflow.keras.applications.mobilenet import preprocess_input
+# from tensorflow.keras.applications.vgg19 import preprocess_input
+from tensorflow.keras.applications.mobilenet import preprocess_input
 from tensorflow.keras.models import load_model
 from tensorflow.keras.metrics import top_k_categorical_accuracy
 from tensorflow.keras.preprocessing import image

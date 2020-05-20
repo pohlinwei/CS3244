@@ -1,0 +1,178 @@
+TODO:
+[X] write script to test with leeds dataset [45 min]
+[X] test tcnn properly with leeds dataset [15 min]
+[X] write script (if necessary) [30 min]
+[X] test tcnn with new dataset [15 min]
+- deal with labels [30 min]
+    * https://stackoverflow.com/questions/43469281/how-to-predict-input-image-using-trained-model-in-keras
+- situation in which no butterfly is detected [40 min]
+[X] determine improvement to work on
+[X] work on improvement
+
+TODO [17 April]:
+[X] update test script
+[X] run test script 
+- check for overfitting
+[X] ask about whether we want to keep the male-only category
+- think about validation (k-folds. Necessary?)
+- 'concatenating' with VGG19
+- experimenting with multiple parameters
+
+IDEAS FOR IMPROVEMENT:
+- increasing size of dataset
+- training it with SGD as the optimiser 
+- 
+
+ABOUT FILES:
+- butterfly_classification_1 --> with 20 epochs, w/ FC, accuracy = 0.84
+- butterfly_classification_2 --> with 15 epochs, w/ FC, accuracy = 0.90
+- butterfly_classification_3 --> with 10 epochs, w/ FC, accuracy = 0.89
+- butterfly_classification_4 --> with 25 epochs, w/o FC, accuracy = 0.92
+- butterfly_classification_5 --> with 30 epochs, w/o FC, accuracy = 0.91
+- butterfly_classification_6 --> with 20 epochs, w/o FC, accuracy = 0.89
+
+TODO [21 April]:
+[X] Clean up and commit changes
+[X] How to show overfitting/graphs?
+    - what diagrams to show?
+[ ] Make copies/test with different parameters
+    - unfreezing layer and training
+    - Tcnn vs TcnnWithFC
+    - different number of epochs
+[X] Find out what metrics to use for accuracy 
+    - compute top-1 (and top-3?)
+    - error matrix?
+[X] Sampling method
+[X] Computing top-1 and top-3 error
+[X] Confusion matrix
+[ ] Add images for ..,(male)
+[ ] Combine with VGG19
+[ ] Check how much time is required for one image prediction
+[ ] Write literature review and experiment results
+
+
+ABOUT FILES:
+- butterfly_classification_1 --> with 20 epochs, w/o FC, accuracy = 0.884, 0.981
+    0.853, 0.990
+- butterfly_classification_2 --> with 15 epochs, w/o FC, accuracy = 0.873, 0.977
+    0.863, 0.958
+- butterfly_classification_3 --> with 25 epochs, w/o FC, accuracy = 0.905, 0.989
+    0.916, 0.990; (uncropped) 0.958, 1.00
+- butterfly_classification_4 --> with 30 epochs, w/o FC, accuracy = 0.907, 0.989
+    0.790, 1.00
+- butterfly_classification_5 --> with 15 epochs, w/ FC, accuracy = 0.839, 0.976
+    0.832, 1.00
+- butterfly_classification_6 --> with 20 epochs, w/ FC, accuracy = 0.911, 0.989
+    0.916, 0.990; (uncropped) 0.958, 1.00
+- butterfly_classification_7 --> with 25 epochs, w/ FC, accuracy = 0.898, 0.986
+    0.874, 0.979
+- butterfly_classification_8 --> with 35 epochs, w/o FC, accuracy = 0.887, 0.981
+    0.874, 0.990
+- butterfly_classification_9 --> with 25 epochs, w/o FC, 64
+    0.979, 0.990 (uncropped)
+TODO:
+[X] Test 8 different models
+[ ] Select model
+[ ] Create confusion matrix
+[ ] Obtain graph (?)
+
+TODO [25 Apr]:
+[ ] Try with batch size 32
+[ ] Try with fewer steps
+
+Models:
+1: 20 epochs, 64, cropped, w/o FC, 0.995, 0.981
+2: 20 epochs, 64, uncropped, w/o FC, 0.973, 0.995
+3: 25 epochs, 64, cropped, w/o FC, 0.981, 0.997
+4: 15 epochs, 64, uncropped, w/o FC, 0.956, 0.995
+5: 25 epochs, 64, uncropped, w/o FC, 0.979, 0.995
+6: 25 epochs, 64, uncropped, w/ FC, 0.973, 0.997
+30 epochs, 64, uncropped, w/ FC, 0.971, 0.997
+35 epochs, 64, uncropped, w/ FC, 0.968, 0.997
+
+
+
+7: 25 epochs, 64, cropped, w/ FC, 0.979, 0.997 
+8: 20 epochs, 64, cropped, w/ FC, 0.976, 0.997
+9: MobileNet, 60, cropped, 0.623, 0.925
+10: MobileNet, 20, cropped, 0.7995, 0.992 (mobilenet_success)
+
+MobileNet, 20, uncropped (may need to increase no. of epochs): 0.674, 0.992 (mobilenet_uncropped)
+MobileNet, 20, uncropped, with 1028 (instead of 2048): 0.682, 0.949 (mobilenet_uncropped_1028)
+MobileNet, 40, uncropped, with 1028: 0.786, 0.963
+MobileNet, 40,uncropped: 0.8021, 0.973
+MobileNet, 60, uncropped, with 1028: 0.856, 0.971
+MobileNet, 40, cropped: 0.797, 0.992
+MobileNet, 60, cropped, 1028: 0.8824, 0.995
+12: MobileNet with only last layer modified
+13: ResNet with only last layer modified
+
+Must do:
+- train MobileNet for more iterations (100), uncropped, only output layer --> 0.727, 0.984
+- train MobileNet for more iterations (100), uncropped
+- train MobileNet for more iterations (100), cropped
+
+TODO:
+- train: MobileNet (with adaptation) --> using a batch size of 32
+- train: MobileNet (basic): 120 iterations
+- train: VGG19, no FC: 50 iterations
+- train: VGG19, with FC, 35 iterations
+- train: MobileNet (with adaptation layers): 120 iterations
+- train: MobileNet, VGG19 with cropped
+
+UNCROPPED
+Basic:
+They have yet to converge at 120 and yet...
+MobileNet (big, 120) converges at 0.754, 0.973
+MobileNet (small, 120) converges at 0.778, 0.987
+*** MobileNet (140) converges at 0.824, 0.989
+
+FCMobile:
+*** MobileNet (50) converges at 0.861, 0.971
+
+Vgg 19:
+The first has converged
+VGGNet (big, 30) at 0.971, 0.997
+VGGNet (small, 30) at 0.971, 0.995
+
+*** VGGNet (vgg_uncropped_FC_30) at 0.968, 0.995
+*** VGGNet (vgg_uncropped_noFC_25) at 0.971, 1.00
+
+CROPPED
+*** MobileNet (with FC) 0.909, 0.992
+
+Plan:
+- try with 32 for vgg no FC 
+- if results are okay, go ahead with 32
+- if not, try with 64
+- remaining: MobileNet with cropped, VGG without FC, VGG with FC (if 64), MobileNet (with 32) for both settings uncropped
+
+What worked, what didn't?
+- it seems like with a batch size of 32, the models are able to perform equally well
+- however, when using cropped photos, a batch size of 64 seems to work better
+- besides, it seems like 
+
+- current plan: train with a batch size of 32 for basic and mobile --> choose whichever works best (hopefully it is mobile)
+train vgg with cropped images
+- if no time, just use mobilenet_cropped_FC_new_small_70.h5 or mobilenet_cropped_FC_80.h5 results
+
+- mobilenet_uncropped_FC_new_small_175/180 perform well
+
+Final:
+
+UNCROPPED
+vgg_uncropped_FC_30: 96.8, 99.5
+vgg_uncropped_noFC_25: 97.1, 100
+
+mobilnet_uncropped_FC_50: 86.4, 96.3
+mobilenet_basic_140: 82.4, 98.9
+
+CROPPED
+vggnet_cropped_noFC_35: 98.7, 99.7
+mobilenet_cropped_FC_new_small_70: 90.9, 99.2
+
+REASONABLE
+mobilenet_cropped_FC_80
+vggnet_cropped_noFC_40
+mobilnet_uncropped_FC_60
+mobilnet_uncropped_FC_65
